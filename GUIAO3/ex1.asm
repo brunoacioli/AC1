@@ -22,7 +22,7 @@ for1:	bge $t2, 5, endfor # while (i < 5)
 	syscall # print_string(str1)
 	ori $v0, $0, read_int
 	syscall # read_int()
-	ori $t1, $v0, $0 # t1 = value
+	or $t1, $v0, $0 # t1 = value
 	
 if1:	ble $t1, $0, else1 # if (value > 0)
 	add $t0, $t0, $t1 # soma += value
@@ -31,4 +31,17 @@ if1:	ble $t1, $0, else1 # if (value > 0)
 else1:	la $a0, str2
 	ori $v0, $0, print_string
 	syscall	# print_string(str2)
+
+endif1:	addi $t2, $t2, 1 # i++
+	j for1
+
+endfor: la $a0, str3
+	ori $v0, $0 print_string
+	syscall	# print_string(str3)
+	or $a0, $0, $t0
+	ori $v0, $0, print_int10
+	syscall # print_int10(soma)
+	jr $ra
+	
+		
 	 
